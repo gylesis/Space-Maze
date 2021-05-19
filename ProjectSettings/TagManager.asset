@@ -4,6 +4,9 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - Stair
+  - Climb
+  - Fly
   - Building
   - Enemy
   - Bullet
@@ -29,17 +32,17 @@ TagManager:
   - 
   - 
   - 
+  - Animal
+  - 
+  - 
+  - Enemy
   - 
   - 
   - 
   - 
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Item
   - 
   m_SortingLayers:
   - name: Default
