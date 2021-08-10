@@ -1,38 +1,40 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Project.Scripts.Game;
 using UnityEngine;
 
-public class SoundController : MonoBehaviour {
-    [SerializeField]
-    AudioSource audio;
+namespace Project.Scripts.UI
+{
+    public class SoundController : MonoBehaviour {
+        [SerializeField]
+        AudioSource audio;
 
-    int direction;
+        int direction;
 
-    [SerializeField]
-    float radiusToHear = 30;
+        [SerializeField]
+        float radiusToHear = 30;
 
-    private void Start() {
-        audio.Play();
-    }
-
-    private void Update() {
-        if (Vector3.Distance(transform.position, Player.Instance.transform.position) > 5) {
-            if (audio)
-                audio.volume -= 0.01f;
+        private void Start() {
+            audio.Play();
         }
-        audio.volume = Mathf.Clamp((radiusToHear - (Vector3.Distance(transform.position, Player.Instance.transform.position) / 2)) / 100 - 0.25f, 0, 0.05f);
-        audio.panStereo = -direction * (Vector3.Distance(transform.position, Player.Instance.transform.position)) / 100;
-    }
 
-    private void CalculateDirection() {
-        if(transform.position.x > Player.Instance.transform.position.x) {
-            direction = 1;
+        private void Update() {
+            if (Vector3.Distance(transform.position, Player.Instance.transform.position) > 5) {
+                if (audio)
+                    audio.volume -= 0.01f;
+            }
+            audio.volume = Mathf.Clamp((radiusToHear - (Vector3.Distance(transform.position, Player.Instance.transform.position) / 2)) / 100 - 0.25f, 0, 0.05f);
+            audio.panStereo = -direction * (Vector3.Distance(transform.position, Player.Instance.transform.position)) / 100;
         }
-        else {
-            direction = -1;
+
+        private void CalculateDirection() {
+            if(transform.position.x > Player.Instance.transform.position.x) {
+                direction = 1;
+            }
+            else {
+                direction = -1;
+            }
         }
+
+
+
     }
-
-
-
 }

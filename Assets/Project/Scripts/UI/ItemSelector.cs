@@ -1,66 +1,39 @@
-﻿using System;
+﻿using Project.Scripts.Game.Buildings;
+using UniRx;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ItemSelector : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
+namespace Project.Scripts.UI
 {
-    private int buildingId;
-
-    private Image BG;
-    private GameLogic _gameLogic;
-
-    private void Awake()
+    public class ItemSelector : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
     {
-        _gameLogic = FindObjectOfType<GameLogic>();
-    }
+        [SerializeField] private BuildingData _building;
+        
+        private Image _backgroundImage;
+        private Subject<BuildingData> OnClick = new Subject<BuildingData>();
 
-    private void Start()
-    {
-        switch (name)
+        public void Construct(Subject<BuildingData> onClick)
         {
-            case "Mining Drill":
-                buildingId = 0;
-                break;
-
-            case "Bridge":
-                buildingId = 1;
-                break;
-
-            case "Turret":
-                buildingId = 2;
-                break;
+            _backgroundImage = GetComponentInChildren<Image>();
+            SetOpacity(Color.black);
+            OnClick = onClick;
         }
+    
+        public void OnPointerClick(PointerEventData eventData) => 
+            OnClick.OnNext(_building);
 
-        BG = transform.GetChild(0).GetComponent<Image>();
-    }
+        public void OnPointerEnter(PointerEventData eventData) => 
+            SetOpacity(Color.gray);
 
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        _gameLogic.currentBuildingToBuild = buildingId;
-        CurrentBuildingVisualise.Instance.currentBuildingImage.sprite =
-            CurrentBuildingVisualise.Instance.buildingImages[_gameLogic.currentBuildingToBuild];
-        _gameLogic.isStateToCreate = true;
-    }
+        public void OnPointerExit(PointerEventData eventData) => 
+            SetOpacity(Color.black);
 
-    private void OnEnable()
-    {
-        Color color = Color.black;
-        color.a = .5f;
-        BG.color = color;
-    }
-
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        Color color = Color.gray;
-        color.a = .5f;
-        BG.color = color;
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        Color color = Color.black;
-        color.a = .5f;
-        BG.color = color;
+        private void SetOpacity(Color clor)
+        {
+            var color = clor;
+            color.a = .5f;
+            _backgroundImage.color = color;
+        }
     }
 }

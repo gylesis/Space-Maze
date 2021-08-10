@@ -177,6 +177,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d8425388477cdf479b00a199a4834b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _building: {fileID: 11400000, guid: 674c185b544d0464cb5b83f67172d5ef, type: 2}
 --- !u!222 &62404523
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -214,23 +215,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ff9d8d3cdb6fdf4ca9bc985c1416ac5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Asteroids: []
   spriteOfMaterials:
   - {fileID: 21300000, guid: 1553091ca3730ab4c9b355bf169397a0, type: 3}
   - {fileID: 21300000, guid: 57e02c672a86b3045983ccaa5f3ec7ec, type: 3}
   - {fileID: 21300000, guid: 9f21f72b4f307404f8af3d0c8deac937, type: 3}
   BridgePrice: {fileID: 8202341234306306245}
-  asteroidsCounter: 0
   selectedAsteroid: 0
   currentIdOfAsteroid: 0
-  currentBuildingToBuild: 0
-  BridgePrefab: {fileID: 0}
+  BridgePrefab: {fileID: 6998782814116102022, guid: f5301d362954e634e9f085f743a81d0d,
+    type: 3}
   victorySign: {fileID: 6130629773311795821}
-  isStateToCreate: 0
   enzimaAmount: {fileID: 11400000, guid: 01ea50837c73bc84fbf33e270768307e, type: 2}
   chromiumAmount: {fileID: 11400000, guid: 8871ca12d6fafae4288c7b3dce1cbf10, type: 2}
   linoniumAmount: {fileID: 11400000, guid: b0d9c256df5a75a499437c2f29410aa4, type: 2}
-  explosionPrefab: {fileID: 139366, guid: b185c1a9cf067374586d095111b15bd1, type: 3}
   smallExplosion: {fileID: 139366, guid: 482a995b6d5586346a0d1caa64037669, type: 3}
   drillEnzimaPrice: 50
   drillChromiumPrice: 20
@@ -239,6 +236,11 @@ MonoBehaviour:
   turretChromiumPrice: 40
   turretLimoniumPrice: 15
   bridgeLimoniumPrice: 20
+  _asteroidsController: {fileID: 903428158}
+  _builder: {fileID: 1409504704}
+  _itemSelectors:
+  - {fileID: 261498793}
+  - {fileID: 62404522}
 --- !u!4 &84660390
 Transform:
   m_ObjectHideFlags: 0
@@ -524,8 +526,9 @@ Transform:
   - {fileID: 903428159}
   - {fileID: 84660390}
   - {fileID: 168790409}
+  - {fileID: 1409504705}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &261498790
 GameObject:
@@ -588,6 +591,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d8425388477cdf479b00a199a4834b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _building: {fileID: 11400000, guid: 9a8f9717459e71743b64670689ccd6f9, type: 2}
 --- !u!1 &280003107
 GameObject:
   m_ObjectHideFlags: 0
@@ -824,7 +828,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &557824589
 PrefabInstance:
@@ -1185,11 +1189,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efd1e9c11d3cefa4cb1cea0839c4793a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentBuildingImage: {fileID: 861782799}
-  buildingImages:
-  - {fileID: 21300000, guid: 625be587db313d94c8b3936b1517f810, type: 3}
-  - {fileID: 21300000, guid: 8f16d6c9b11f1e24f979b62c3cc71ee3, type: 3}
-  - {fileID: 21300000, guid: 9e1f3c3528eb55b4fac73488300a3337, type: 3}
 --- !u!1001 &870539640
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1352,19 +1351,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 903428157}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ca95652439cad64ab9a4f3c47c84b3f, type: 3}
+  m_Script: {fileID: 11500000, guid: ae7a019fb2a74f8084ec57c2d0c985d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  k: 0
-  l: 0
-  locationSize: 15
-  asteroids:
-  - {fileID: 5714422318824422066, guid: 2873a51b0858fee4b8d0e9d0f5ddc3ac, type: 3}
-  - {fileID: 1313798097474130782, guid: 71385dd5effffc948b95974443e58be5, type: 3}
-  - {fileID: 1715900571830063221, guid: 255ba98f0f54b4249b31a8562ad430ad, type: 3}
-  Planet: {fileID: 2361246081046621499, guid: 28d4244bb207965488a4854a1663cfe2, type: 3}
-  rangeOfSpawn: 8
-  Parent: {fileID: 1438885618}
+  _asteroidGenerator:
+    _asteroidsToSpawn:
+    - {fileID: 8588119186470759426, guid: 2873a51b0858fee4b8d0e9d0f5ddc3ac, type: 3}
+    - {fileID: 143367388979877437, guid: 71385dd5effffc948b95974443e58be5, type: 3}
+    - {fileID: 6358617706021658717, guid: 255ba98f0f54b4249b31a8562ad430ad, type: 3}
+    _planet: {fileID: 2361246081046621499, guid: 28d4244bb207965488a4854a1663cfe2,
+      type: 3}
+    _parent: {fileID: 1438885618}
+    _locationSize: 20
+    _rangeOfSpawn: 10
+  _camera: {fileID: 1323425138}
 --- !u!4 &903428159
 Transform:
   m_ObjectHideFlags: 0
@@ -1957,7 +1957,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!850595691 &1400486459
 LightingSettings:
@@ -2030,7 +2030,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1409504705}
   - component: {fileID: 1409504704}
-  - component: {fileID: 1409504706}
   m_Layer: 0
   m_Name: Builder
   m_TagString: Untagged
@@ -2050,13 +2049,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 601d62b29af4ab5498a29d11ca37b9e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _buildings:
-  - {fileID: 4455542775788283039, guid: f9ed91c925cb8cd4ba5fde779b45098d, type: 3}
-  - {fileID: 6998782814116102022, guid: f5301d362954e634e9f085f743a81d0d, type: 3}
-  - {fileID: 1357775595962294479, guid: d51f642f7fe689c429cf63b60d7cec43, type: 3}
   _maxRangeForBridge: 100
-  _drillPreviewPrefab: {fileID: 0}
-  _building: {fileID: 0}
+  _buildingVisualiser: {fileID: 861782801}
 --- !u!4 &1409504705
 Transform:
   m_ObjectHideFlags: 0
@@ -2064,32 +2058,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1409504703}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.5890399, y: 2.04983, z: -0.9492046}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.3840591, y: 0.63709223, z: -1.008097}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2065288238}
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_Father: {fileID: 200057218}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1409504706
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1409504703}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91808c45bc069f84fadb63e997fd6759, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _blueprints:
-  - {fileID: 4455542775788283039, guid: 96259d318ba5bd64e8e77c6be8fa9461, type: 3}
-  - {fileID: 0}
-  - {fileID: 1357775595962294479, guid: e23e8207c2361b74a80df934e83666a7, type: 3}
-  BlueprintToView: {fileID: 1357775595962294479, guid: e23e8207c2361b74a80df934e83666a7,
-    type: 3}
 --- !u!1001 &1437073891
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2253,7 +2229,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &1440703384 stripped
 RectTransform:
@@ -3189,7 +3165,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1763112431}
   - component: {fileID: 1763112433}
-  - component: {fileID: 1763112432}
   m_Layer: 5
   m_Name: Bridge
   m_TagString: Untagged
@@ -3220,18 +3195,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 30}
   m_SizeDelta: {x: 822, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1763112432
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1763112430}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d8425388477cdf479b00a199a4834b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!222 &1763112433
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3447,7 +3410,7 @@ RectTransform:
   - {fileID: 6130629773311795818}
   - {fileID: 313029159}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}

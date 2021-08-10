@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee146b56f8124e32beb83c2a472a7167, type: 3}
+  m_Name: MiningDrill
+  m_EditorClassIdentifier: 
+  _enzimaPrice: 0
+  _chromiumPrice: 0
+  _linoniumPrice: 0
+  Blueprint: {fileID: 4455542775788283039, guid: 96259d318ba5bd64e8e77c6be8fa9461,
+    type: 3}
+  ExplosionPrefab: {fileID: 139366, guid: b185c1a9cf067374586d095111b15bd1, type: 3}
+  Icon: {fileID: 21300000, guid: 625be587db313d94c8b3936b1517f810, type: 3}
+  Prefab: {fileID: 4455542775788283036, guid: f9ed91c925cb8cd4ba5fde779b45098d, type: 3}
+  Health: 100
+  MaxHealth: 100

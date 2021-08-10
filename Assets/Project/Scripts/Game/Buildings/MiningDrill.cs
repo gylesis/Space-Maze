@@ -1,81 +1,62 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
+using UniRx;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class MiningDrill : Building
+namespace Project.Scripts.Game.Buildings
 {
-    [SerializeField] float tickTime = 1f;
-    [SerializeField] private GameObject hpBar;
-
-    private int materialMined = 0;
-    private int maxAllowedToMine;
-    private int materialPerTick = 3;
-    private bool allowToTick = true;
-    private GameLogic _gameLogic;
-
-    private void Awake()
+    public class MiningDrill : Building
     {
-        _gameLogic = FindObjectOfType<GameLogic>();
+        [SerializeField] float tickTime = 1f;
+
+        private int materialPerTick = 3;
+        private bool _allowToTick = true;
+        private GameLogic _gameLogic;
+    
+        private static readonly int Setup = Animator.StringToHash("Setup");
+
+        private void Awake()
+        {
+            _gameLogic = FindObjectOfType<GameLogic>();
         
-        name = "MiningDrill";
-        _hp = 200;
-        _maxHp = _hp;
-        GetComponent<Animator>().SetTrigger("Setup");
+            GetComponent<Animator>().SetTrigger(Setup);
 
-        switch (_gameLogic.Asteroids[_gameLogic.selectedAsteroid].GetComponent<Asteroid>().typeOfAsteroid)
-        {
-            case Asteroid.TypeOfAsteroid.enzima:
-                idOfCurrentAsteroid = 1;
-                break;
+            var slider = GetComponentInChildren<Slider>();
+            var healthBar = new HealthBar(slider);
 
-            case Asteroid.TypeOfAsteroid.chromium:
-                idOfCurrentAsteroid = 2;
-                break;
-
-            case Asteroid.TypeOfAsteroid.linonium:
-                idOfCurrentAsteroid = 3;
-                break;
-        }
-    }
-
-    protected override void Update()
-    {
-        if (allowToTick)
-        {
-            allowToTick = false;
-            StartCoroutine(Income());
+            _buildingData.OnHeatlhChanged.Subscribe(healthBar.UpdateBar);
         }
 
-        if (LocatingAsteroid.oreAmount <= 0)
+        protected void Update()
         {
-            OnDeath();
+            if (_allowToTick)
+            {
+                _allowToTick = false;
+                StartCoroutine(Income());
+            }
         }
 
-        hpBar.transform.localScale =
-            new Vector3(_hp / _maxHp, hpBar.transform.localScale.y, hpBar.transform.localScale.z);
-    }
-
-    IEnumerator Income()
-    {
-        switch (idOfCurrentAsteroid)
+        IEnumerator Income()
         {
-            case 1:
-                _gameLogic.enzimaAmount.Value += materialPerTick;
-                break;
+            switch (idOfCurrentAsteroid)
+            {
+                case 1:
+                    _gameLogic.enzimaAmount.Value += materialPerTick;
+                    break;
 
-            case 2:
-                _gameLogic.chromiumAmount.Value += materialPerTick;
-                break;
+                case 2:
+                    _gameLogic.chromiumAmount.Value += materialPerTick;
+                    break;
 
-            case 3:
-                _gameLogic.linoniumAmount.Value += materialPerTick;
-                break;
+                case 3:
+                    _gameLogic.linoniumAmount.Value += materialPerTick;
+                    break;
+            }
+
+            //LocatingAsteroid.oreAmount -= materialPerTick;
+
+            yield return new WaitForSeconds(tickTime);
+            _allowToTick = true;
         }
-
-        LocatingAsteroid.oreAmount -= materialPerTick;
-
-        yield return new WaitForSeconds(tickTime);
-        allowToTick = true;
     }
 }

@@ -1,29 +1,31 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Project.Scripts.Game;
 using UnityEngine;
 
-public class ExplosionSound : MonoBehaviour
+namespace Project.Scripts
 {
-    [SerializeField] AudioSource audio;
-
-    float radiusToHear = 50f;
-
-    private void Start()
+    public class ExplosionSound : MonoBehaviour
     {
-        audio.Play();
-    }
+        [SerializeField] AudioSource audio;
 
-    private void Update()
-    {
-        if (Vector3.Distance(transform.position, Player.Instance.transform.position) > 5)
+        float radiusToHear = 50f;
+
+        private void Start()
         {
-            if (audio)
-                audio.volume -= 0.01f;
+            audio.Play();
         }
 
-        audio.volume =
-            Mathf.Clamp(
-                (radiusToHear - (Vector3.Distance(transform.position, Player.Instance.transform.position) / 2)) / 100 -
-                0.4f, 0, 0.3f);
+        private void Update()
+        {
+            if (Vector3.Distance(transform.position, Player.Instance.transform.position) > 5)
+            {
+                if (audio)
+                    audio.volume -= 0.01f;
+            }
+
+            audio.volume =
+                Mathf.Clamp(
+                    (radiusToHear - (Vector3.Distance(transform.position, Player.Instance.transform.position) / 2)) / 100 -
+                    0.4f, 0, 0.3f);
+        }
     }
 }

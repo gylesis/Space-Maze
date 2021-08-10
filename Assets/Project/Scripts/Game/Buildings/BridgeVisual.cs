@@ -1,132 +1,120 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using Project.Scripts.UI;
 using UnityEngine;
 
-public class BridgeVisual : MonoBehaviour
+namespace Project.Scripts.Game.Buildings
 {
-    private LineRenderer _bridgeLine;
-    private static GameLogic _gameLogic;
-
-    private void Awake()
+    public class BridgeVisual : MonoBehaviour
     {
-        _gameLogic = FindObjectOfType<GameLogic>();
-        _bridgeLine = GetComponent<LineRenderer>();
-    }
+        /*private LineRenderer _bridgeLine;
+        private static GameLogic _gameLogic;
 
-    public static void BridgeCreate()
-    {
-        if (!CheckForAllowToBuild())
+        private void Awake()
         {
-            return;
-        }
-        else if (GameLogic.inMenu)
-        {
-            return;
+            _gameLogic = FindObjectOfType<GameLogic>();
+            _bridgeLine = GetComponent<LineRenderer>();
         }
 
-        var bridge = Instantiate(GameLogic.Instance.BridgePrefab);
-
-        var startPoint = _gameLogic.Asteroids[_gameLogic.currentIdOfAsteroid].transform;
-        var targetPoint = _gameLogic.Asteroids[_gameLogic.selectedAsteroid].transform;
-
-        BridgeRender bridgeRenderer = bridge.GetComponent<BridgeRender>();
-        bridgeRenderer.SetPoses(startPoint.position, targetPoint.position);
-
-        GameLogic.bridges.Add(bridge);
-        DefineBridgePoses();
-
-        EdgeCollider2D collider = bridge.AddComponent<EdgeCollider2D>();
-        collider.isTrigger = true;
-        Vector2[] newVerts =
+        public static void BridgeCreate()
         {
-            bridgeRenderer.pos1,
-            bridgeRenderer.pos2
-        };
-        collider.points = newVerts;
-
-        if (_gameLogic.selectedAsteroid == _gameLogic.Asteroids.Count - 2)
-        {
-            VictoryCondition.win = true;
-            Debug.Log("You Won");
-            CreateFinalBridge();
-        }
-    }
-
-    public static void CreateFinalBridge()
-    {
-        var bridge = Instantiate(GameLogic.Instance.BridgePrefab);
-
-        var startPoint = _gameLogic.Asteroids[_gameLogic.selectedAsteroid].transform;
-        var targetPoint = _gameLogic.Asteroids[_gameLogic.Asteroids.Count - 1].transform;
-
-        BridgeRender bridgeRenderer = bridge.GetComponent<BridgeRender>();
-        bridgeRenderer.SetPoses(startPoint.position, targetPoint.position);
-
-        GameLogic.bridges.Add(bridge);
-        DefineBridgePoses();
-
-        EdgeCollider2D collider = bridge.AddComponent<EdgeCollider2D>();
-        collider.isTrigger = true;
-        Vector2[] newVerts =
-        {
-            bridgeRenderer.pos1,
-            bridgeRenderer.pos2
-        };
-        collider.points = newVerts;
-
-        VictoryCondition.win = false;
-    }
-
-
-    public static void DefineBridgePoses()
-    {
-        for (int i = 0; i < GameLogic.bridges.Count; i++)
-        {
-            GameLogic.bridgePoses1.Add(GameLogic.bridges[i].transform.GetChild(0).position);
-            GameLogic.bridgePoses2.Add(GameLogic.bridges[i].transform.GetChild(1).position);
-        }
-    }
-
-    public static bool CheckForAllowToBuild()
-    {
-        if (Vector3.Distance(_gameLogic.Asteroids[_gameLogic.currentIdOfAsteroid].transform.position,
-                _gameLogic.Asteroids[_gameLogic.selectedAsteroid].transform.position)
-            > Builder.Instance._maxRangeForBridge)
-        {
-            return false;
-        }
-        else if (_gameLogic.currentBuildingToBuild != 1)
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
-    }
-
-    private void OnMouseEnter()
-    {
-        if (CheckForAllowToBuild() && !GameLogic.inMenu)
-        {
-            if (gameObject.name == "Castle")
+            if (!CheckForAllowToBuild())
             {
-                print("sdsadasd");
-                _bridgeLine.SetPosition(0, _gameLogic.Asteroids[_gameLogic.currentIdOfAsteroid].transform.position);
-                _bridgeLine.SetPosition(1, transform.position);
+                return;
             }
-            else
+            else if (GameLogic.inMenu)
             {
-                _bridgeLine.SetPosition(0, _gameLogic.Asteroids[_gameLogic.currentIdOfAsteroid].transform.position);
-                _bridgeLine.SetPosition(1, _gameLogic.Asteroids[_gameLogic.selectedAsteroid].transform.position);
+                return;
+            }
+
+            var bridge = Instantiate(GameLogic.Instance.BridgePrefab);
+
+            var startPoint = _gameLogic.Asteroids[_gameLogic.currentIdOfAsteroid].transform;
+            var targetPoint = _gameLogic.Asteroids[_gameLogic.selectedAsteroid].transform;
+
+            BridgeRender bridgeRenderer = bridge.GetComponent<BridgeRender>();
+            bridgeRenderer.SetPoses(startPoint.position, targetPoint.position);
+
+            GameLogic.bridges.Add(bridge);
+            DefineBridgePoses();
+
+            EdgeCollider2D collider = bridge.AddComponent<EdgeCollider2D>();
+            collider.isTrigger = true;
+            Vector2[] newVerts =
+            {
+                bridgeRenderer.pos1,
+                bridgeRenderer.pos2
+            };
+            collider.points = newVerts;
+
+            if (_gameLogic.selectedAsteroid == _gameLogic.Asteroids.Count - 2)
+            {
+                VictoryCondition.win = true;
+                Debug.Log("You Won");
+                CreateFinalBridge();
             }
         }
-    }
 
-    private void OnMouseExit()
-    {
-        _bridgeLine.SetPosition(0, _gameLogic.Asteroids[_gameLogic.currentIdOfAsteroid].transform.position);
-        _bridgeLine.SetPosition(1, _gameLogic.Asteroids[_gameLogic.currentIdOfAsteroid].transform.position);
+        public static void CreateFinalBridge()
+        {
+            var bridge = Instantiate(GameLogic.Instance.BridgePrefab);
+
+            var startPoint = _gameLogic.Asteroids[_gameLogic.selectedAsteroid].transform;
+            var targetPoint = _gameLogic.Asteroids[_gameLogic.Asteroids.Count - 1].transform;
+
+            BridgeRender bridgeRenderer = bridge.GetComponent<BridgeRender>();
+            bridgeRenderer.SetPoses(startPoint.position, targetPoint.position);
+
+            GameLogic.bridges.Add(bridge);
+            DefineBridgePoses();
+
+            EdgeCollider2D collider = bridge.AddComponent<EdgeCollider2D>();
+            collider.isTrigger = true;
+            Vector2[] newVerts =
+            {
+                bridgeRenderer.pos1,
+                bridgeRenderer.pos2
+            };
+            collider.points = newVerts;
+
+            VictoryCondition.win = false;
+        }
+
+
+        public static void DefineBridgePoses()
+        {
+            for (int i = 0; i < GameLogic.bridges.Count; i++)
+            {
+                GameLogic.bridgePoses1.Add(GameLogic.bridges[i].transform.GetChild(0).position);
+                GameLogic.bridgePoses2.Add(GameLogic.bridges[i].transform.GetChild(1).position);
+            }
+        }
+
+        public static bool CheckForAllowToBuild()
+        {
+           // ограничение строительства по длине
+        }
+
+        private void OnMouseEnter()
+        {
+            if (CheckForAllowToBuild() && !GameLogic.inMenu)
+            {
+                if (gameObject.name == "Castle")
+                {
+                    print("sdsadasd");
+                    _bridgeLine.SetPosition(0, _gameLogic.Asteroids[_gameLogic.currentIdOfAsteroid].transform.position);
+                    _bridgeLine.SetPosition(1, transform.position);
+                }
+                else
+                {
+                    _bridgeLine.SetPosition(0, _gameLogic.Asteroids[_gameLogic.currentIdOfAsteroid].transform.position);
+                    _bridgeLine.SetPosition(1, _gameLogic.Asteroids[_gameLogic.selectedAsteroid].transform.position);
+                }
+            }
+        }
+
+        private void OnMouseExit()
+        {
+            _bridgeLine.SetPosition(0, _gameLogic.Asteroids[_gameLogic.currentIdOfAsteroid].transform.position);
+            _bridgeLine.SetPosition(1, _gameLogic.Asteroids[_gameLogic.currentIdOfAsteroid].transform.position);
+        }*/
     }
 }

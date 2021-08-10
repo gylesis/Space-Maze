@@ -1,123 +1,56 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
+using UniRx;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class Asteroid : MonoBehaviour
+namespace Project.Scripts.Game.Asteroids
 {
-    public static Asteroid CurrentAsteroid;
-
-    [SerializeField] SpriteRenderer spriteOfCurrentMaterial;
-
-    public float oreAmount;
-
-    private Text oreText;
-    private bool isCaptured = false;
-    private int Id;
-    private GameLogic _gameLogic;
-
-    public enum TypeOfAsteroid
+    public class Asteroid : MonoBehaviour
     {
-        enzima,
-        chromium,
-        linonium
-    }
+        private Text _text;
 
-    public
-        TypeOfAsteroid typeOfAsteroid;
-
-    [SerializeField] private float forceCoefficient = 1f;
-    [SerializeField] private bool isEnabled = true;
-    [SerializeField] private float radius;
-
-    private void Awake()
-    {
-        _gameLogic = FindObjectOfType<GameLogic>();
-        
-        _gameLogic.Asteroids.Add(gameObject);
-        oreText = GetComponentInChildren<Text>();
-    }
-
-    private void Start()
-    {
-        oreAmount = Random.value * 100 + 200;
-
-        int randomType = Random.Range(1, 4);
-        switch (randomType)
+        public enum TypeOfAsteroid
         {
-            case 1:
-                typeOfAsteroid = TypeOfAsteroid.enzima;
-                spriteOfCurrentMaterial.sprite = _gameLogic.spriteOfMaterials[0];
-                break;
-
-            case 2:
-                typeOfAsteroid = TypeOfAsteroid.chromium;
-                spriteOfCurrentMaterial.sprite = _gameLogic.spriteOfMaterials[1];
-                break;
-
-            case 3:
-                typeOfAsteroid = TypeOfAsteroid.linonium;
-                spriteOfCurrentMaterial.sprite = _gameLogic.spriteOfMaterials[2];
-                break;
+            Enzima,
+            Chromium,
+            linonium
         }
 
-        StartCoroutine(IdInitialization());
-    }
+        private AsteroidData _data;
 
-    private void Update()
-    {
-        ApplyGravityOnPlayer();
+        public readonly Subject<Unit> OnDestroy = new Subject<Unit>();
 
-        if (name != "DestinationPlanet")
+        public void Construct(AsteroidData data)
         {
-            oreText.text = ((int) Mathf.Max(oreAmount, 0)).ToString();
+            _data = data;
+            _data.Construct();
+
+            _text = GetComponentInChildren<Text>();
+
+            
+            // StartCoroutine(IdInitialization());
+
+            Subscription();
         }
-    }
 
-    IEnumerator IdInitialization()
-    {
-        yield return new WaitForSeconds(1f);
-        for (int i = 0; i < _gameLogic.Asteroids.Count; i++)
+        private void Subscription()
         {
-            if (_gameLogic.Asteroids[i] == gameObject)
+            _data.OnOreEvaluate
+                .TakeUntilDestroy(this)
+                .Subscribe(UpdateOreAmount);
+        }
+
+        private void UpdateOreAmount(float value)
+        {
+            _text.text = value.ToString();
+
+            if (value <= 0)
             {
-                Id = i;
+                OnDestroy.OnNext(Unit.Default);
+                Destroy(this);
             }
         }
-    }
 
-    private void ApplyGravityOnPlayer()
-    {
-        Vector2 distance = transform.position - Player.Instance.transform.position;
-        Vector2 force = (forceCoefficient / distance.magnitude * distance.magnitude) * distance.normalized;
-
-        if (distance.magnitude < radius && isEnabled)
-        {
-            CurrentAsteroid = this;
-            _gameLogic.currentIdOfAsteroid = Id;
-            Player.Instance.Rigidbody.AddForce(force);
-        }
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawWireSphere(transform.position, radius);
-    }
-
-    private void OnMouseEnter()
-    {
-        _gameLogic.selectedAsteroid = Id;
-        BlueprintCreator.Instance.ShowBlueprint();
-    }
-
-    private void OnMouseOver()
-    {
-        _gameLogic.selectedAsteroid = Id;
-    }
-
-    private void OnMouseExit()
-    {
-        BlueprintCreator.Instance.DeleteBluepint();
     }
 }

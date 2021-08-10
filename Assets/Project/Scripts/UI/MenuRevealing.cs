@@ -1,22 +1,27 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using UniRx;
 using UnityEngine;
 
-public class MenuRevealing : MonoBehaviour
+namespace Project.Scripts.UI
 {
-    [SerializeField] private GameObject menu;
-
-    private void Update()
+    public class MenuRevealing : MonoBehaviour
     {
-        if (Input.GetKey(KeyCode.Tab))
+        [SerializeField] private GameObject menu;
+
+        private bool _isActive;
+
+        private void Awake()
         {
-            menu.SetActive(true);
-            GameLogic.inMenu = true;
+            Observable
+                .EveryUpdate()
+                .Where(_ => Input.GetKeyDown(KeyCode.Tab))
+                .Subscribe(_ => SetMenuState());
         }
-        else if (Input.GetKeyUp(KeyCode.Tab))
+
+        private void SetMenuState()
         {
-            menu.SetActive(false);
-            GameLogic.inMenu = false;
+            _isActive = !_isActive;
+            menu.SetActive(_isActive);
         }
+       
     }
 }

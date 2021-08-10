@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Project.Scripts.Game.Enemy;
 using UnityEngine;
 
 public class MoveState : StateMachineBehaviour {

@@ -1,28 +1,29 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class BridgeRender : MonoBehaviour
+namespace Project.Scripts.Game.Buildings
 {
-    [SerializeField] LineRenderer bridgeLine;
-
-    public Vector3 pos1;
-    public Vector3 pos2;
-
-    public void SetPoses(Vector3 pos1, Vector3 pos2)
+    public class BridgeRender : MonoBehaviour
     {
-        this.pos1 = pos1;
-        this.pos2 = pos2;
-    }
+        [SerializeField] LineRenderer bridgeLine;
 
-    private void Start()
-    {
-        GameLogic.Instance.bridgeLimoniumPrice += 5;
-    }
+        public Vector3 pos1;
+        public Vector3 pos2;
 
-    private void Update()
-    {
-        bridgeLine.SetPosition(0, pos1);
-        bridgeLine.SetPosition(1, pos2);
+        public void SetPoses(Vector3 pos1, Vector3 pos2)
+        {
+            this.pos1 = pos1;
+            this.pos2 = pos2;
+        }
+
+        private void Start()
+        {
+            GameLogic.Instance.bridgeLimoniumPrice += 5;
+        }
+
+        private void Update()
+        {
+            bridgeLine.SetPosition(0, pos1);
+            bridgeLine.SetPosition(1, pos2);
+        }
     }
 }

@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 3647395252898247309}
   - component: {fileID: 8837448698090362117}
   - component: {fileID: 4707266389107239477}
-  - component: {fileID: 3044019387840709713}
   m_Layer: 2
   m_Name: Turret
   m_TagString: Untagged
@@ -102,27 +101,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 7
---- !u!114 &3044019387840709713
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 414615454332545224}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c32ca9de16775ec41824e14f156a7880, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enzimaPrice: 0
-  chromiumPrice: 0
-  linoniumPrice: 0
-  locatingAsteroid: {fileID: 0}
-  _agreRange: 20
-  Bullet: {fileID: 9001892138538206092, guid: f23730b891e46084a9bb2d95a4a7bb6d, type: 3}
-  _spawnPoint: {fileID: 2735455189607355655}
-  _hpBar: {fileID: 5437737211258773061}
-  _damage: 20
 --- !u!1 &1357775595962294479
 GameObject:
   m_ObjectHideFlags: 0
@@ -133,6 +111,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3050014723967301884}
   - component: {fileID: 7216542555915595138}
+  - component: {fileID: 4888950349665931782}
   m_Layer: 2
   m_Name: TurretPrefab
   m_TagString: Building
@@ -182,6 +161,25 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1.58}
   m_EdgeRadius: 0
+--- !u!114 &4888950349665931782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1357775595962294479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c32ca9de16775ec41824e14f156a7880, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _buildingData: {fileID: 11400000, guid: 674c185b544d0464cb5b83f67172d5ef, type: 2}
+  LocatingAsteroid: {fileID: 0}
+  _agreRange: 20
+  Bullet: {fileID: 9001892138538206092, guid: f23730b891e46084a9bb2d95a4a7bb6d, type: 3}
+  _spawnPoint: {fileID: 2735455189607355655}
+  _hpBar: {fileID: 5437737211258773061}
+  _damage: 20
 --- !u!1 &3446092129705789667
 GameObject:
   m_ObjectHideFlags: 0

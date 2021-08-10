@@ -1,43 +1,45 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using Project.Scripts.Game;
 using UnityEngine;
 
-public class VictoryCondition : MonoBehaviour
+namespace Project.Scripts.UI
 {
-    [SerializeField]
-    GameObject victoryPanel;
-
-    [SerializeField]
-    LineRenderer bridgeLine;
-
-    public static bool win = false;
-    public static bool win2 = false;
-    private GameLogic _gameLogic;
-
-    private void Awake()
+    public class VictoryCondition : MonoBehaviour
     {
-        _gameLogic = FindObjectOfType<GameLogic>();
-    }
+        [SerializeField]
+        GameObject victoryPanel;
 
-    private void Update() {
-        if(_gameLogic.currentIdOfAsteroid == _gameLogic.Asteroids.Count - 2 && win2) {
-      //      win = true;
-       //     Victory();
+        [SerializeField]
+        LineRenderer bridgeLine;
+
+        public static bool win = false;
+        public static bool win2 = false;
+        private GameLogic _gameLogic;
+
+        private void Awake()
+        {
+            _gameLogic = FindObjectOfType<GameLogic>();
         }
+
+        /*private void Update() {
+            if(_gameLogic.currentIdOfAsteroid == _gameLogic.Asteroids.Count - 2 && win2) {
+                      win = true;
+                     Victory();
+            }
     
+        }
+        */
+
+        private void Victory() {
+            Debug.Log("You Won");
+            win = false;
+            // bridge.SetPosition(0, GameLogic.Asteroids[GameLogic.currentIdOfAsteroid].transform.position);
+            //  bridge.SetPosition(1, GameLogic.Asteroids[GameLogic.Asteroids.Count - 1].transform.position);
+
+
+            // victoryPanel.SetActive(true);
+
+        }
+
+
     }
-
-    private void Victory() {
-        Debug.Log("You Won");
-        win = false;
-        // bridge.SetPosition(0, GameLogic.Asteroids[GameLogic.currentIdOfAsteroid].transform.position);
-        //  bridge.SetPosition(1, GameLogic.Asteroids[GameLogic.Asteroids.Count - 1].transform.position);
-
-
-        // victoryPanel.SetActive(true);
-
-    }
-
-
 }

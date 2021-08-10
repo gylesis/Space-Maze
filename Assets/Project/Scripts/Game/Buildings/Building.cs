@@ -1,46 +1,41 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Project.Scripts.Game.Asteroids;
+using UniRx;
 using UnityEngine;
 
-public class Building : MonoBehaviour
+namespace Project.Scripts.Game.Buildings
 {
-    protected float _hp;
-    protected float _maxHp;
-
-    protected string name;
-
-    private int _enzimaPrice;
-    private int _chromiumPrice;
-    private int _linoniumPrice;
-
-    public Asteroid LocatingAsteroid;
-
-    protected int idOfCurrentAsteroid { get; set; }
-
-    protected void SetPrice(int enzima, int chromium, int linonium)
+    public class Building : MonoBehaviour
     {
-        _enzimaPrice = enzima;
-        _chromiumPrice = chromium;
-        _linoniumPrice = linonium;
-    }
+        [SerializeField] protected BuildingData _buildingData;
+        protected float Health => _buildingData.Health;
+        protected float MaxHealth => _buildingData.MaxHealth;
+        protected float RemainingHealth => Health - MaxHealth;
+    
+        private static readonly int Leave = Animator.StringToHash("Leave");
 
-    protected virtual void Update()
-    {
-    }
+        protected int idOfCurrentAsteroid { get; set; }
 
-    public void TakeDamage(int damage, GameObject obj)
-    {
-        _hp -= damage;
-        if (_hp <= 0)
+        public void Construct(Asteroid buildDataLocationAsteroid)
         {
-            OnDeath();
-            obj.GetComponent<Animator>().SetTrigger("Leave");
+            buildDataLocationAsteroid.OnDestroy
+                .Take(1)
+                .Subscribe(_ => OnDeath());
         }
-    }
+        
+        public void TakeDamage(int damage)  // НЛО при убийстве здания улетало TODO
+        {
+            var health = Health;
+        
+            health -= damage;
+        
+            if (health <= 0) 
+                OnDeath();
+        }
 
-    public void OnDeath()
-    {
-        Destroy(Instantiate(GameLogic.Instance.explosionPrefab, transform.position, Quaternion.identity), 2f);
-        Destroy(gameObject);
+        public void OnDeath()
+        {
+            Destroy(Instantiate(_buildingData.ExplosionPrefab, transform.position, Quaternion.identity), 2f);
+            Destroy(gameObject);
+        }
     }
 }

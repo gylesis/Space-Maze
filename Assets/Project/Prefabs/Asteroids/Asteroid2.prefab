@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7936157372844079403}
+  - component: {fileID: 143367388979877437}
   m_Layer: 0
   m_Name: Asteroid2
   m_TagString: Untagged
@@ -28,9 +29,22 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8818371006156878821}
+  - {fileID: 5936075759293555096}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &143367388979877437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1313798097474130782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1aba17a569d368d419258813175e0d3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1376106740463482559
 GameObject:
   m_ObjectHideFlags: 0
@@ -226,7 +240,6 @@ GameObject:
   - component: {fileID: 8818371006156878821}
   - component: {fileID: 297404386401145134}
   - component: {fileID: 4983944183801319183}
-  - component: {fileID: 4595838094355667090}
   - component: {fileID: 3659797058896258345}
   - component: {fileID: 6868324124654645398}
   - component: {fileID: 2832804165805945615}
@@ -393,23 +406,6 @@ PolygonCollider2D:
       - {x: -0.82, y: -1.8199999}
       - {x: -0.71, y: -1.76}
       - {x: -0.45, y: -1.76}
---- !u!114 &4595838094355667090
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6584545133063682509}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1aba17a569d368d419258813175e0d3b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  oreAmount: 0
-  spriteOfCurrentMaterial: {fileID: 5201620779243496574}
-  typeOfAsteroid: 0
-  isEnabled: 1
-  radius: 4
 --- !u!114 &3659797058896258345
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -422,7 +418,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebe56dce3d689e046821c7e47865dbb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bridgeLine: {fileID: 2832804165805945615}
 --- !u!222 &6868324124654645398
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -542,6 +537,75 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1083ca71bf7118a46aafb433c38bc2d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &7217816851160189965
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5936075759293555096}
+  - component: {fileID: 6875061553282057960}
+  - component: {fileID: 3099314047189937045}
+  m_Layer: 0
+  m_Name: Trigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5936075759293555096
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7217816851160189965}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7936157372844079403}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &6875061553282057960
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7217816851160189965}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 5
+--- !u!50 &3099314047189937045
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7217816851160189965}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &7243053017440000955
 GameObject:
   m_ObjectHideFlags: 0

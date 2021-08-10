@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Project.Scripts.Game;
+using Project.Scripts.Game.Enemy;
 using UnityEngine;
 
 public class AttackState : StateMachineBehaviour {
